@@ -30,8 +30,8 @@ impl<'a, W: io::Write> ser::Serializer for &'a mut Serializer<W> {
     type SerializeStructVariant = Self;
 
 
-    fn serialize_bool(self, _v: bool) -> ProtoResult<()> {
-        unimplemented!()
+    fn serialize_bool(self, v: bool) -> ProtoResult<()> {
+        self.writer.write_u8(v as u8).map_err(Into::into)
     }
 
     fn serialize_i8(self, v: i8) -> ProtoResult<()> {
